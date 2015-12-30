@@ -1,16 +1,16 @@
 module.exports = function() {
 	var mqtt    = require('mqtt');
 	var request = require('request');
-	var client  = mqtt.connect('mqtt://192.168.1.124');
+	var client  = mqtt.connect(process.env.MQTT_URL);
 
 	var services = [ {
 		name: 'runMonitor',
-		url: 'http://localhost:8080/colorTimeSinceLastRun',
-		feed: 'runmonitor'
+		url: process.env.RUNMONITOR_HOST + '/colorTimeSinceLastRun',
+		feed: process.env.RUNMONITOR_FEED
 	}, {
 		name: 'getHomeDry',
-		url: 'http://localhost:3000/intensity/color',
-		feed: 'gethomedry'
+		url: process.env.GETHOMEDRY_HOST + '/intensity/color',
+		feed: process.env.GETHOMEDRY_FEED
 	} ];
 	 
 	client.on('connect', function () {
